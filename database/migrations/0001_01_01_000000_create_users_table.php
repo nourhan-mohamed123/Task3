@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('is_admin')->default(0);
             $table->string('password');
-            $table->rememberToken();
+            $table->enum('type', ['admin', 'guest'])->default('guest');
+
             $table->timestamps();
         });
 
@@ -40,10 +41,5 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
-    }
+    public function down(): void {}
 };

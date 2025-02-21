@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('services', function (Blueprint $table) {
+            $table->id();
+            $table->string('type');
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
      * Reverse the migrations.
      */
+    // @return void();
     public function down(): void
     {
-        Schema::table(table: 'books', callback: function (Blueprint $table) {
-
-            $table->string('author');
-
-        });
+        Schema::dropIfExists('services');
     }
 };

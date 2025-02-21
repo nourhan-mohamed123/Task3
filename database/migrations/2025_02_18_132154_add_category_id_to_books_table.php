@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('books', function (Blueprint $table) {
+            $table->foreignId('category_id')->after('image')->constrained()->cascadeOnDelete();
+        });
     }
 
     /**
@@ -19,10 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table(table: 'books', callback: function (Blueprint $table) {
-
-            $table->string('author');
-
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->dropColumn(['category_id']);
         });
     }
 };
